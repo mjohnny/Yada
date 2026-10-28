@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>คำถามพิเศษถึงญาดา 🐰💕</title>
+
+  <!-- Thai Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Itim&family=Kanit:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Canvas Confetti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+  <style>
+    :root {
+      --primary-pink: #ff3b75;
+      --card-bg: rgba(255, 255, 255, 0.95);
+      --text-main: #2d3436;
+      --text-sub: #57606f;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      user-select: none;
+      -webkit-user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      font-family: 'Kanit', sans-serif;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(135deg, #fbc2eb 0%, #a6c1ee 100%);
+      overflow: hidden;
+      position: relative;
+      padding: 16px;
+    }
+
+    /* Ambient floating hearts */
+    .bg-heart {
+      position: absolute;
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 22px;
+      pointer-events: none;
+      animation: floatUp 8s linear infinite;
+    }
+
+    @keyframes floatUp {
+      0% {
+        transform: translateY(110vh) scale(0.6) rotate(0deg);
+        opacity: 0;
+      }
+      20% { opacity: 0.85; }
+      80% { opacity: 0.85; }
+      100% {
+        transform: translateY(-10vh) scale(1.2) rotate(45deg);
+        opacity: 0;
+      }
+    }
+
+    .wrapper {
+      width: 100%;
+      max-width: 385px;
+      position: relative;
+      z-index: 10;
+    }
+
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 30px;
+      padding: 28px 22px 26px;
+      width: 100%;
+      box-shadow: 0 18px 45px rgba(255, 105, 180, 0.28);
+      text-align: center;
+      border: 2px solid rgba(255, 255, 255, 0.85);
+      position: relative;
+      animation: popIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes popIn {
+      0% { transform: scale(0.88); opacity: 0; }
+      100% { transform: scale(1); opacity: 1; }
+    }
+
+    .top-badge {
+      display: inline-block;
+      background: #fdf2f4;
+      color: #f06292;
+      border: 1px solid #f8bbd0;
+      border-radius: 20px;
+      padding: 4px 16px;
+      font-size: 13px;
+      font-weight: 500;
+      margin-bottom: 12px;
+    }
+
+    /* GIF Embed Frame */
+    .gif-frame {
+      width: 145px;
+      height: 145px;
+      margin: 0 auto 10px;
+      border-radius: 20px;
+      overflow: hidden;
+      position: relative;
+      box-shadow: 0 6px 16px rgba(255, 138, 161, 0.22);
+      animation: floatChar 3.2s ease-in-out infinite;
+      background: #ffffff;
+    }
+
+    @keyframes floatChar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-7px); }
+    }
+
+    .gif-frame iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+      pointer-events: none;
+      transform: scale(1.06);
+    }
+
+    .main-title {
+      font-family: 'Itim', cursive;
+      font-size: 31px;
+      color: var(--text-main);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+
+    .subtitle-box {
+      font-size: 14px;
+      color: var(--text-sub);
+      line-height: 1.55;
+      font-weight: 300;
+      margin-bottom: 20px;
+      padding: 0 4px;
+    }
+
+    .buttons-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 14px;
+      position: relative;
+      min-height: 52px;
+    }
+
+    .btn-yes {
+      background: linear-gradient(135deg, #ff416c, #ff4b2b);
+      color: #ffffff;
+      border: none;
+      padding: 12px 30px;
+      border-radius: 24px;
+      font-size: 17px;
+      font-family: 'Kanit', sans-serif;
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 6px 20px rgba(255, 65, 108, 0.42);
+      transition: all 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 5;
+    }
+
+    .btn-yes:hover, .btn-yes:active {
+      box-shadow: 0 8px 26px rgba(255, 65, 108, 0.65);
+    }
+
+    .btn-no {
+      background: #f1f2f6;
+      color: #888888;
+      border: 1px solid #dfe4ea;
+      padding: 11px 22px;
+      border-radius: 24px;
+      font-size: 15px;
+      font-family: 'Kanit', sans-serif;
+      cursor: pointer;
+      transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      z-index: 4;
+      white-space: nowrap;
+    }
+
+    .tease-msg {
+      font-size: 12.5px;
+      color: #a4b0be;
+      min-height: 20px;
+      font-weight: 300;
+      transition: all 0.2s ease;
+    }
+
+    /* Success Card Notes */
+    .success-notes {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .note-card {
+      background: #fdfafb;
+      border-radius: 18px;
+      padding: 14px 16px;
+      font-size: 14px;
+      color: #4a4a4a;
+      line-height: 1.5;
+      border: 1px solid #f8e8ec;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.02);
+    }
+
+    .note-card b {
+      color: #ff3b75;
+      font-weight: 500;
+    }
+
+    .btn-next-gift {
+      background: linear-gradient(135deg, #ff758c, #ff7eb3);
+      color: #ffffff;
+      border: none;
+      padding: 10px 24px;
+      border-radius: 20px;
+      font-size: 15px;
+      font-family: 'Kanit', sans-serif;
+      margin-top: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 15px rgba(255, 117, 140, 0.35);
+      transition: transform 0.2s;
+    }
+
+    .btn-next-gift:active {
+      transform: scale(0.95);
+    }
+
+    .hidden {
+      display: none !important;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Floating background decorations -->
+  <div class="bg-heart" style="left: 12%; animation-delay: 0s;">💗</div>
+  <div class="bg-heart" style="left: 28%; animation-delay: 3s;">🌸</div>
+  <div class="bg-heart" style="left: 72%; animation-delay: 1.5s;">💖</div>
+  <div class="bg-heart" style="left: 88%; animation-delay: 4.5s;">✨</div>
+
+  <div class="wrapper">
+
+    <!-- PAGE 1: PROPOSAL QUESTION CARD -->
+    <div id="page1" class="card">
+      <div class="top-badge">คำถามพิเศษจากจอห์นนี่ถึงญาดา 💌</div>
+
+      <!-- Initial GIF: Kissing / Cute (10278806572430824666) -->
+      <div id="frameInitial" class="gif-frame">
+        <iframe src="https://tenor.com/embed/10278806572430824666" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+
+      <!-- Hover / Dodge GIF: Surprised / Sad (26392901) -->
+      <div id="frameHoverNo" class="gif-frame hidden">
+        <iframe src="https://tenor.com/embed/26392901" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+
+      <div class="main-title">
+        ขอจีบญาดาได้มั้ย? ♡
+      </div>
+
+      <div class="subtitle-box">
+        ไม่ได้อยากรีบร้อน แต่อยากค่อย ๆ ทำความรู้จักญาดาให้มากขึ้น<br>
+        ถ้าญาดาโอเค จอห์นนี่สัญญาว่าจะดูแลและทำให้ญาดามีรอยยิ้มในทุก ๆ วันเลยนะ
+      </div>
+
+      <div class="buttons-row">
+        <button class="btn-yes" id="btnYes" onclick="goToPage2()">จีบหน่อยได้</button>
+        <button class="btn-no" id="btnNo" onmouseenter="dodgeNo()" ontouchstart="dodgeNo(event)" onclick="dodgeNo(event)">ไม่ให้จีบ</button>
+      </div>
+
+      <div class="tease-msg" id="teaseMsg"></div>
+    </div>
+
+    <!-- PAGE 2: ACCEPTED / LOVE HEARTS CARD -->
+    <div id="page2" class="card hidden">
+      <div class="top-badge">ดีใจที่สุดเลย 💖</div>
+
+      <!-- Yes Click GIF: Love Hearts (25649558) -->
+      <div class="gif-frame">
+        <iframe src="https://tenor.com/embed/25649558" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+
+      <div class="main-title" style="font-size:26px;">
+        ขอบคุณที่ให้โอกาสนะ ♡
+      </div>
+
+      <div class="subtitle-box" style="margin-bottom: 12px;">
+        ดีใจมากเลยที่พี่ยินดีให้จีบเรา<br>
+        จากนี้เราจะทำให้พี่มีแต่รอยยิ้มทุกวันเลย
+      </div>
+
+      <div class="success-notes">
+        <div class="note-card">
+          ขอชวนไปกินขนมอร่อย ๆ สักมื้อนะ<br>
+          <b>จอห์นนี่เลี้ยงเอง 🧁</b>
+        </div>
+      </div>
+
+      <button class="btn-next-gift" onclick="goToPage3()">เปิดของขวัญพิเศษสำหรับญาดา 🎁 ➜</button>
+    </div>
+
+    <!-- PAGE 3: FINAL LOVE LETTER / PRESENT CARD -->
+    <div id="page3" class="card hidden">
+      <div class="top-badge">ของขวัญพิเศษสำหรับญาดา 🎁</div>
+
+      <!-- Final Message GIF: Present / Gift (9260731) -->
+      <div class="gif-frame">
+        <iframe src="https://tenor.com/embed/9260731" frameborder="0" scrolling="no" allowtransparency="true"></iframe>
+      </div>
+
+      <div class="main-title" style="font-size:24px;">
+        ของขวัญพิเศษสำหรับญาดา ♡
+      </div>
+
+      <div class="success-notes" style="margin-top: 10px;">
+        <div class="note-card">
+          ขอชวนไปกินขนมอร่อย ๆ สักมื้อนะ<br>
+          <b>จอห์นนี่เลี้ยงเอง 🧁</b>
+        </div>
+        <div class="note-card">
+          แล้วต่อแต่นี้ตั้งใจแชทให้เราด้วยนะ<br>
+          <b>จอห์นนี่สัญญาว่าจะดูแลและทำให้ญาดามีความสุขในทุก ๆ วันเลยนะ 🤍✨</b>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const teaseMessages = [
+      "อ้าว ญาดากดพลาดเหรอ ลองใหม่อีกทีน้า",
+      "กดปุ่มสีชมพูเถอะนะ 🥺",
+      "ปุ่มนี้กดไม่ได้หรอก ญาดาลองปุ่มสีชมพูดูสิ~",
+      "เอ้า หนีได้ด้วยยย 🏃‍♂️💨",
+      "ใจร้ายจังงง ให้จอห์นนี่จีบเถอะนะะ ♡",
+      "ญาดายังจะตามไปกดอีกกก แหน่ะ!"
+    ];
+    let dodgeCount = 0;
+
+    function dodgeNo(e) {
+      if (e) e.preventDefault();
+
+      const btnNo = document.getElementById('btnNo');
+      const btnYes = document.getElementById('btnYes');
+      const teaseMsg = document.getElementById('teaseMsg');
+
+      // Switch to GIF 2 (Hover over No - 26392901)
+      if (dodgeCount === 0) {
+        document.getElementById('frameInitial').classList.add('hidden');
+        document.getElementById('frameHoverNo').classList.remove('hidden');
+      }
+
+      // Random displacement
+      const randomX = (Math.random() - 0.5) * 200;
+      const randomY = (Math.random() - 0.5) * 140;
+
+      btnNo.style.position = 'relative';
+      btnNo.style.transform = `translate(${randomX}px, ${randomY}px)`;
+
+      // Grow Yes Button
+      dodgeCount++;
+      const currentScale = Math.min(1 + (dodgeCount * 0.1), 1.45);
+      btnYes.style.transform = `scale(${currentScale})`;
+
+      // Update Tease Text
+      teaseMsg.innerText = teaseMessages[dodgeCount % teaseMessages.length];
+      teaseMsg.style.color = '#ff3b75';
+    }
+
+    function goToPage2() {
+      document.getElementById('page1').classList.add('hidden');
+      document.getElementById('page2').classList.remove('hidden');
+
+      // Confetti Explosions
+      confetti({
+        particleCount: 90,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#ff3b75', '#ff8da1', '#ffc2eb', '#ffffff']
+      });
+
+      setTimeout(() => {
+        confetti({
+          particleCount: 60,
+          angle: 60,
+          spread: 55,
+          origin: { x: 0 }
+        });
+        confetti({
+          particleCount: 60,
+          angle: 120,
+          spread: 55,
+          origin: { x: 1 }
+        });
+      }, 300);
+    }
+
+    function goToPage3() {
+      document.getElementById('page2').classList.add('hidden');
+      document.getElementById('page3').classList.remove('hidden');
+
+      confetti({
+        particleCount: 70,
+        spread: 60,
+        origin: { y: 0.6 },
+        colors: ['#ff758c', '#ffb703', '#ffffff']
+      });
+    }
+  </script>
+</body>
+</html>
